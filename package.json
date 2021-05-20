@@ -1,0 +1,28 @@
+{
+  "name": "code-and-magick",
+  "version": "0.0.1",
+  "description": "Учебный проект \"Code and magick\"\"",
+  "main": "index.js",
+  "scripts": {
+    "test:lint": "eslint .",
+    "test": "npm run test:lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexKomz/nodejs_code-and-magick.git"
+  },
+  "author": "AlexKomz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexKomz/nodejs_code-and-magick/issues"
+  },
+  "homepage": "https://github.com/AlexKomz/nodejs_code-and-magick#readme",
+  "devDependencies": {
+    "@types/node": "15.3.1",
+    "eslint": "7.26.0",
+    "eslint-config-htmlacademy": "3.0.0"
+  },
+  "dependencies": {
+    "colors": "1.4.0"
+  }
+}
