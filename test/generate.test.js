@@ -20,7 +20,7 @@ describe(`Generate JSON command`, () => {
 
     return generateCommand
       .execute(tempFileName)
-      .then(access(tempFileName))
-      .then(unlink(tempFileName));
+      .then(() => access(tempFileName))
+      .then(() => unlink(tempFileName));
   });
 });
