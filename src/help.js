@@ -10,6 +10,6 @@ module.exports = {
   execute() {
     console.log(`This application does nothing. Accessible params:
 ${colors.italic.gray(HELP_COMMAND)}    - prints this info;
-${colors.italic.gray(VERSION_COMMAND)} - prings application version;`);
+${colors.italic.gray(VERSION_COMMAND)} - prints application version;`);
   }
 };
