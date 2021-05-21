@@ -18,7 +18,7 @@ const command = param;
 commands.find((it) => it.isApplicable(command))
   .execute()
   .then((message) => console.log(message))
-  .catch((err) => {
-    console.error(err.message);
+  .catch((message) => {
+    console.error(message);
     process.exit(1);
   });
