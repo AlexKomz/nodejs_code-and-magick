@@ -3,10 +3,10 @@ const colors = require(`colors`);
 const {promisify} = require(`util`);
 const {generateEntity} = require(`./generator/wizards-generator`);
 
-const writeFile = promisify(fs.writeFile);
-
 const COMMAND = `--generate`;
 const DEFAULT_PATH = `${process.cwd()}/wizards.json`;
+
+const writeFile = promisify(fs.writeFile);
 
 const data = generateEntity();
 // const fileWriteOptions = {
