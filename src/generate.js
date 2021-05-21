@@ -20,9 +20,7 @@ module.exports = {
   },
   execute(path = DEFAULT_PATH) {
     return writeFile(path, JSON.stringify(data))
-      .catch((err) => {
-        return Promise.reject(colors.red(err.message));
-      })
+      .catch((err) => Promise.reject(colors.red(err.message)))
       .then(() => Promise.resolve(colors.green(`Data was generated into > ${path}`)));
   }
   // execute(path = DEFAULT_PATH) {
