@@ -1,3 +1,5 @@
+const {run} = require(`./server`);
+
 const commands = [
   require(`./src/help`),
   require(`./src/version`),
@@ -10,15 +12,14 @@ const args = process.argv.slice(2);
 const param = args[0];
 
 if (!param) {
-  console.log(`No params were provided`);
-  process.exit(1);
+  run();
+} else {
+  const command = param;
+  commands.find((it) => it.isApplicable(command))
+    .execute()
+    .then((message) => console.log(message))
+    .catch((e) => {
+      console.error(e.message);
+      process.exit(1);
+    });
 }
-
-const command = param;
-commands.find((it) => it.isApplicable(command))
-  .execute()
-  .then((message) => console.log(message))
-  .catch((e) => {
-    console.error(e.message);
-    process.exit(1);
-  });
