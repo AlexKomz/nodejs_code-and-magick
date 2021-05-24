@@ -1,18 +1,19 @@
-const fs = require(`fs`);
+// const fs = require(`fs`);
+const fs = require(`fs/promises`);
 const colors = require(`colors`);
-const {promisify} = require(`util`);
+// const {promisify} = require(`util`);
 const {generateEntity} = require(`./generator/wizards-generator`);
 
 const COMMAND = `--generate`;
 const DEFAULT_PATH = `${process.cwd()}/wizards.json`;
 
-const writeFile = promisify(fs.writeFile);
+// const writeFile = promisify(fs.writeFile);
 
 const data = generateEntity();
-// const fileWriteOptions = {
-//   encoding: `utf-8`,
-//   mode: 0o644
-// };
+const fileWriteOptions = {
+  encoding: `utf-8`,
+  mode: 0o644
+};
 
 module.exports = {
   isApplicable(command) {
@@ -20,7 +21,7 @@ module.exports = {
   },
   execute: async (path = DEFAULT_PATH) => {
     try {
-      await writeFile(path, JSON.stringify(data));
+      await fs.writeFile(path, JSON.stringify(data), fileWriteOptions);
     } catch (e) {
       throw new Error(colors.red(e.message));
     }
