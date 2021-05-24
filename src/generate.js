@@ -18,11 +18,25 @@ module.exports = {
   isApplicable(command) {
     return command === COMMAND;
   },
-  execute(path = DEFAULT_PATH) {
-    return writeFile(path, JSON.stringify(data))
-      .catch((err) => Promise.reject(colors.red(err.message)))
-      .then(() => Promise.resolve(colors.green(`Data was generated into > ${path}`)));
+  execute: async (path = DEFAULT_PATH) => {
+    try {
+      await writeFile(path, JSON.stringify(data));
+    } catch (e) {
+      throw new Error(colors.red(e.message));
+    }
+
+    return colors.green(`Data was generated into > ${path}`);
   }
+
+  // execute(path = DEFAULT_PATH) {
+  //   return writeFile(path, JSON.stringify(data))
+  //     .catch((err) => {
+  //       err.message = colors.red(err.message);
+  //       return Promise.reject(err);
+  //     })
+  //     .then(() => Promise.resolve(colors.green(`Data was generated into > ${path}`)));
+  // }
+
   // execute(path = DEFAULT_PATH) {
   //   return new Promise((resolve, reject) => {
   //     fs.writeFile(path, JSON.stringify(data), fileWriteOptions, (err) => {
