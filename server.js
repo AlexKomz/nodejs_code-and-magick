@@ -1,11 +1,22 @@
 const http = require(`http`);
+const path = require(`path`);
 const fs = require(`fs/promises`);
 
 const HOSTNAME = `127.0.0.1`;
 const PORT = 3000;
 const ADDRESS = `http://${HOSTNAME}:${PORT}`;
 
-const printDirectory = (path, relativePath, files) => {
+const EXTENSION_MAP = {
+  '.css': `text/css`,
+  '.html': `text/html`,
+  '.jpg': `text/jpeg`,
+  '.jpeg': `text/jpeg`,
+  '.png': `text/png`,
+  '.gif': `text/gif`,
+  '.ico': `text/x-icon`,
+};
+
+const printDirectory = (filepath, relativePath, files) => {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,15 +31,16 @@ const printDirectory = (path, relativePath, files) => {
 </html>`;
 };
 
-const readFile = async (path, res) => {
-  const data = await fs.readFile(path);
-  res.setHeader(`content-type`, `text/plain`);
+const readFile = async (filepath, res) => {
+  const data = await fs.readFile(filepath);
+  const extension = path.extname(filepath);
+  res.setHeader(`content-type`, EXTENSION_MAP[extension] || `text/plain`);
   res.end(data);
 };
 
 
-const readDir = async (path, relativePath, res) => {
-  const files = await fs.readdir(path);
+const readDir = async (filepath, relativePath, res) => {
+  const files = await fs.readdir(filepath);
   res.setHeader(`content-type`, `text/html`);
   res.end(printDirectory(path, relativePath, files));
 };
