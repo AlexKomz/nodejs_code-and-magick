@@ -23,7 +23,7 @@ describe(`GET /api/wizards`, () => {
       expect(`Content-Type`, /json/);
 
     const wizards = response.body;
-    assert.equal(wizards.length, 17);
+    assert.strictEqual(wizards.length, 17);
   });
 
   it(`get data from unknown resource`, async () => {

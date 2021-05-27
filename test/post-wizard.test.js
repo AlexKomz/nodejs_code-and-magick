@@ -30,7 +30,6 @@ describe(`POST /api/wizards`, () => {
       expect(400).
       expect(`Content-Type`, /json/);
 
-
     const errors = response.body;
     assert.deepStrictEqual(errors, [
       `Field name 'name' is required!`
