@@ -9,8 +9,7 @@ const validate = require(`./validate`);
 
 const upload = multer({storage: multer.memoryStorage()});
 
-// eslint-disable-next-line new-cap
-const wizardsRouter = express.Router();
+const wizardsRouter = new express.Router();
 
 const jsonParser = express.json();
 const wizards = wizardsGenerator.generateEntity();
