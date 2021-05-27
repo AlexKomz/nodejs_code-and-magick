@@ -18,7 +18,6 @@ app.use(express.static(`${__dirname}/../static`));
 
 app.use(`/api/wizards`, wizardsRouter);
 
-
 app.use(NOT_FOUND_HANDLER);
 
 app.use(ERROR_HANDLER);
