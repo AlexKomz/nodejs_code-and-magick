@@ -14,15 +14,15 @@ class WizardStore {
   }
 
   async getWizard(name) {
-    return await this.collection.findOne({name});
+    return (await this.collection).findOne({name});
   }
 
   async getAllWizards() {
-    return await this.collection.find();
+    return (await this.collection).find();
   }
 
   async save(wizardData) {
-    return await this.collection.insertOne(wizardData);
+    return (await this.collection).insertOne(wizardData);
   }
 }
 
