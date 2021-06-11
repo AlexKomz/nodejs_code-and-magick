@@ -1,7 +1,13 @@
 const request = require(`supertest`);
 const assert = require(`assert`);
+const express = require(`express`);
 
-const app = require(`../src/server`).app;
+const wizardsStoreMock = require(`./mock/wizards-store-mock`);
+const imageStoreMock = require(`./mock/image-store-mock`);
+const wizardsRoute = require(`../src/wizards/route`)(wizardsStoreMock, imageStoreMock);
+
+const app = express();
+app.use(`/api/wizards`, wizardsRoute);
 
 describe(`POST /api/wizards`, () => {
   it(`send wizard as json`, async () => {

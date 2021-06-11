@@ -2,7 +2,6 @@ const commands = [
   require(`./src/help`),
   require(`./src/server`),
   require(`./src/version`),
-  require(`./src/generate`),
   require(`./src/default`),
 ];
 

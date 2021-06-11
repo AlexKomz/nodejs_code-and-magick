@@ -1,7 +1,13 @@
 const request = require(`supertest`);
 const assert = require(`assert`);
+const express = require(`express`);
 
-const app = require(`../src/server`).app;
+const wizardsStoreMock = require(`./mock/wizards-store-mock`);
+const imageStoreMock = require(`./mock/image-store-mock`);
+const wizardsRoute = require(`../src/wizards/route`)(wizardsStoreMock, imageStoreMock);
+
+const app = express();
+app.use(`/api/wizards`, wizardsRoute);
 
 describe(`GET /api/wizards`, () => {
   it(`get all wizards`, async () => {
@@ -12,7 +18,20 @@ describe(`GET /api/wizards`, () => {
       expect(`Content-Type`, /json/);
 
     const wizards = response.body;
-    assert.strictEqual(wizards.length, 17);
+    assert.strictEqual(wizards.total, 17);
+    assert.strictEqual(wizards.data.length, 10);
+  });
+
+  it(`get all wizards?skip=2&limit=20`, async () => {
+    const response = await request(app).
+      get(`/api/wizards?skip=2&limit=20`).
+      set(`Accept`, `application/json`).
+      expect(200).
+      expect(`Content-Type`, /json/);
+
+    const wizards = response.body;
+    assert.strictEqual(wizards.total, 17);
+    assert.strictEqual(wizards.data.length, 15);
   });
 
   it(`get all wizards with / at the end`, async () => {
@@ -23,16 +42,8 @@ describe(`GET /api/wizards`, () => {
       expect(`Content-Type`, /json/);
 
     const wizards = response.body;
-    assert.strictEqual(wizards.length, 17);
-  });
-
-  it(`get data from unknown resource`, async () => {
-    return await request(app).
-    get(`/api/oneone`).
-    set(`Accept`, `application/json`).
-    expect(404).
-    expect(`Page was not found`).
-    expect(`Content-Type`, /html/);
+    assert.strictEqual(wizards.total, 17);
+    assert.strictEqual(wizards.data.length, 10);
   });
 });
 
@@ -59,7 +70,7 @@ describe(`GET /api/wizards/:name`, () => {
     assert.strictEqual(wizard.name, `Мерлин`);
   });
 
-  xit(`get unknown wizard with name "Шапокляк"`, async () => {
+  it(`get unknown wizard with name "Шаполкляк"`, async () => {
     return request(app).
       get(`/api/wizards/${encodeURI(`шапокляк`)}`).
       set(`Accept`, `application/json`).
