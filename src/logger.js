@@ -5,8 +5,8 @@ const logger = createLogger({
   level: `info`,
   format: format.json(),
   transports: [
-    new transports.File({filename: `error.log`, level: `error`}),
-    new transports.File({filename: `combined.log`})
+    new transports.File({filename: `error.log`, level: `error`, format: combine(timestamp(), format.simple())}),
+    new transports.File({filename: `combined.log`, format: combine(timestamp(), format.simple())})
   ]
 });
 
