@@ -1,13 +1,14 @@
 const colors = require(`colors`);
 const packageInfo = require(`../package.json`);
+const logger = require(`./logger`);
 
 module.exports = {
   isApplicable() {
     return true;
   },
   execute() {
-    console.log(colors.rainbow(packageInfo.description));
-    console.error(`To list possible options use '--help'`);
+    logger.info(colors.rainbow(packageInfo.description));
+    logger.error(`To list possible options use '--help'`);
     process.exit(1);
   }
 };

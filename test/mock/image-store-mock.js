@@ -1,4 +1,4 @@
-class MockImageStore {
+class MockImagesStore {
 
   async get() {
   }
@@ -9,4 +9,4 @@ class MockImageStore {
 
 }
 
-module.exports = new MockImageStore();
+module.exports = new MockImagesStore();

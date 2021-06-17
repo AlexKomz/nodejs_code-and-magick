@@ -3,8 +3,8 @@ const assert = require(`assert`);
 const express = require(`express`);
 
 const wizardsStoreMock = require(`./mock/wizards-store-mock`);
-const imageStoreMock = require(`./mock/image-store-mock`);
-const wizardsRoute = require(`../src/wizards/route`)(wizardsStoreMock, imageStoreMock);
+const imagesStoreMock = require(`./mock/image-store-mock`);
+const wizardsRoute = require(`../src/wizards/route`)(wizardsStoreMock, imagesStoreMock);
 
 const app = express();
 app.use(`/api/wizards`, wizardsRoute);
@@ -56,21 +56,21 @@ describe(`GET /api/wizards/:name`, () => {
       expect(`Content-Type`, /json/);
 
     const wizard = response.body;
-    assert.strictEqual(wizard.name, `Мерлин`);
+    assert.strictEqual(wizard.username, `Мерлин`);
   });
 
   it(`get wizard with name "Мерлин" in lower case`, async () => {
     const response = await request(app).
-    get(`/api/wizards/${encodeURI(`мерлин`)}`).
-    set(`Accept`, `application/json`).
-    expect(200).
-    expect(`Content-Type`, /json/);
+      get(`/api/wizards/${encodeURI(`мерлин`)}`).
+      set(`Accept`, `application/json`).
+      expect(200).
+      expect(`Content-Type`, /json/);
 
     const wizard = response.body;
-    assert.strictEqual(wizard.name, `Мерлин`);
+    assert.strictEqual(wizard.username, `Мерлин`);
   });
 
-  it(`get unknown wizard with name "Шаполкляк"`, async () => {
+  it(`get unknown wizard with name "Шапокляк"`, async () => {
     return request(app).
       get(`/api/wizards/${encodeURI(`шапокляк`)}`).
       set(`Accept`, `application/json`).

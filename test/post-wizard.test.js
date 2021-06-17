@@ -12,7 +12,7 @@ app.use(`/api/wizards`, wizardsRoute);
 describe(`POST /api/wizards`, () => {
   it(`send wizard as json`, async () => {
     const sent = {
-      name: `SuperWizard`
+      username: `SuperWizard`
     };
 
     const response = await request(app).
@@ -47,7 +47,7 @@ describe(`POST /api/wizards`, () => {
 
     const response = await request(app).
       post(`/api/wizards`).
-      field(`name`, wizardName).
+      field(`username`, wizardName).
       set(`Accept`, `application/json`).
       set(`Content-Type`, `multipart/form-data`).
       expect(200).
@@ -55,7 +55,7 @@ describe(`POST /api/wizards`, () => {
 
 
     const wizard = response.body;
-    assert.deepStrictEqual(wizard, {name: wizardName});
+    assert.deepStrictEqual(wizard, {username: wizardName});
   });
 
   it(`send wizard with avatar as multipart/form-data`, async () => {
@@ -63,7 +63,7 @@ describe(`POST /api/wizards`, () => {
 
     const response = await request(app).
       post(`/api/wizards`).
-      field(`name`, wizardName).
+      field(`username`, wizardName).
       attach(`avatar`, `test/fixtures/keks.png`).
       set(`Accept`, `application/json`).
       set(`Content-Type`, `multipart/form-data`).
@@ -72,6 +72,6 @@ describe(`POST /api/wizards`, () => {
 
 
     const wizard = response.body;
-    assert.deepStrictEqual(wizard, {name: wizardName, avatar: {name: `keks.png`}});
+    assert.deepStrictEqual(wizard, {username: wizardName, avatar: {name: `keks.png`}});
   });
 });

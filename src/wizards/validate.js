@@ -2,7 +2,7 @@ const ValidationError = require(`../error/validation-error`);
 
 const validate = (data) => {
   const errors = [];
-  if (!data.name) {
+  if (!data.username) {
     errors.push(`Field name 'name' is required!`);
   }
   if (errors.length > 0) {

@@ -1,3 +1,5 @@
+require(`dotenv`).config();
+
 const commands = [
   require(`./src/help`),
   require(`./src/server`),

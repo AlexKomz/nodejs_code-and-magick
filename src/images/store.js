@@ -2,6 +2,7 @@ const db = require(`../database/db`);
 const mongodb = require(`mongodb`);
 
 class ImageStore {
+
   async getBucket() {
     if (this._bucket) {
       return this._bucket;
@@ -10,7 +11,7 @@ class ImageStore {
     if (!this._bucket) {
       this._bucket = new mongodb.GridFSBucket(dBase, {
         chunkSizeBytes: 512 * 1024,
-        bucketName: `avatars`
+        bucketName: `avatars`,
       });
     }
     return this._bucket;
@@ -18,8 +19,8 @@ class ImageStore {
 
   async get(filename) {
     const bucket = await this.getBucket();
-    const result = await bucket.find({filename}).toArray();
-    const entity = result[0];
+    const results = await (bucket).find({filename}).toArray();
+    const entity = results[0];
     if (!entity) {
       return void 0;
     }
