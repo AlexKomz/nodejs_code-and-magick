@@ -22,8 +22,8 @@ const command = param;
 const promise = commands.find((it) => it.isApplicable(command)).execute(...commandParams);
 
 if (promise) {
-  promise.catch((reason) => {
-    console.error(reason.message);
+  promise.catch((err) => {
+    console.error(err.message);
     process.exit(1);
   });
 }
