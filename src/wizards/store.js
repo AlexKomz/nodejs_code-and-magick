@@ -14,8 +14,8 @@ class WizardStore {
     this.collection = collection;
   }
 
-  async getWizard(name) {
-    return (await this.collection).findOne({name});
+  async getWizard(username) {
+    return (await this.collection).findOne({username});
   }
 
   async getAllWizards() {

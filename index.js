@@ -1,4 +1,5 @@
 require(`dotenv`).config();
+const logger = require(`./src/logger`);
 
 const commands = [
   require(`./src/help`),
@@ -23,7 +24,7 @@ const promise = commands.find((it) => it.isApplicable(command)).execute(...comma
 
 if (promise) {
   promise.catch((err) => {
-    console.error(err.message);
+    logger.error(err.message);
     process.exit(1);
   });
 }
